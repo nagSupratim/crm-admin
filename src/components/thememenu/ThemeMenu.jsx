@@ -50,7 +50,7 @@ const color_settings = [
 ];
 
 const clickOutsideRef = (toggle_ref, content_ref) => {
-  document.addEventListener('mousedown', (event) => {
+  document.addEventListener('click', (event) => {
     if (
       toggle_ref.current &&
       toggle_ref.current.contains(event.target)
