@@ -9,11 +9,11 @@ import statusCardData from '../assets/JsonData/status-card-data.json';
 const chartOptions = {
   series: [
     {
-      name: 'Online Customers',
+      name: 'Online',
       data: [20, 36, 40, 53, 60, 71, 80, 93, 97],
     },
     {
-      name: 'Store Customers',
+      name: 'Store',
       data: [40, 30, 70, 80, 40, 16, 38, 23, 10],
     },
   ],

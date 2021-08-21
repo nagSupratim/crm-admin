@@ -49,28 +49,10 @@ const color_settings = [
   },
 ];
 
-const clickOutsideRef = (toggle_ref, content_ref) => {
-  document.addEventListener('click', (event) => {
-    if (
-      toggle_ref.current &&
-      toggle_ref.current.contains(event.target)
-    ) {
-      content_ref.current.classList.toggle('active');
-    } else {
-      if (
-        content_ref.current &&
-        !content_ref.current.contains(event.target)
-      ) {
-        content_ref.current.classList.remove('active');
-      }
-    }
-  });
-};
 const ThemeMenu = () => {
-  const menu_ref = useRef();
-  const menu_toggle_ref = useRef();
   const [currMode, setCurrMode] = useState('light');
   const [currColor, setCurrColor] = useState('blue');
+  const menu_ref = useRef();
   const dispatch = useDispatch();
 
   const setMode = (mode) => {
@@ -83,33 +65,31 @@ const ThemeMenu = () => {
     localStorage.setItem('colorMode', color.class);
     dispatch(ThemeAction.setColor(color.class));
   };
-  useEffect(() => {
-    const themeClass = mode_settings.find(
-      (e) =>
-        e.class ===
-        localStorage.getItem('themeMode', 'theme-mode-light')
-    );
-    const colorClass = color_settings.find(
-      (e) =>
-        e.class ===
-        localStorage.getItem('colorMode', 'color-mode-light')
-    );
-    if (themeClass !== undefined) setCurrMode(themeClass.id);
-    if (colorClass !== undefined) setCurrColor(colorClass.id);
-  }, []);
-  clickOutsideRef(menu_toggle_ref, menu_ref);
-
-  const setActiveMenu = () =>
-    menu_ref.current.classList.add('active');
+  // prettier-ignore
+  const openMenu = () => menu_ref.current.classList.add('active');
+  // prettier-ignore
   const closeMenu = () => menu_ref.current.classList.remove('active');
+
+  useEffect(() => {
+    // prettier-ignore
+    const themeClass = mode_settings.find((e) => e.class === localStorage.getItem('themeMode', 'theme-mode-light'));
+    if (themeClass !== undefined) setCurrMode(themeClass.id);
+
+    // prettier-ignore
+    const colorClass = color_settings.find((e) => e.class === localStorage.getItem('colorMode', 'color-mode-light'));
+    if (colorClass !== undefined) setCurrColor(colorClass.id);
+
+    // prettier-ignore
+    const handler = (event) => !menu_ref.current.contains(event.target) && closeMenu();
+    document.addEventListener('mousedown', handler);
+
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   return (
     <>
-      <button
-        className="dropdown__toggle"
-        ref={menu_toggle_ref}
-        onClick={setActiveMenu}
-      >
+      {/*prettier-ignore */}
+      <button className="dropdown__toggle" onClick={openMenu}>
         <i className="bx bx-palette"></i>
       </button>
       <div className="theme-menu" ref={menu_ref}>

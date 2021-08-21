@@ -47,7 +47,7 @@ const Sidebar = (props) => {
   );
   const tooltipConfig = {
     type: themeReducer.mode === 'theme-mode-light' ? 'dark' : 'light',
-    delayShow: '100',
+    delayShow: 100,
   };
 
   return (

@@ -1,31 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './dropdown.css';
 
-const clickOutsideRef = (toggle_ref, content_ref) => {
-  document.addEventListener('click', (event) => {
-    if (
-      toggle_ref.current &&
-      toggle_ref.current.contains(event.target)
-    ) {
-      content_ref.current.classList.toggle('active');
-    } else {
-      if (
-        content_ref.current &&
-        !content_ref.current.contains(event.target)
-      ) {
-        content_ref.current.classList.remove('active');
-      }
-    }
-  });
-};
-
 const DropDown = (props) => {
-  const dropdown_toggle_el = useRef();
-  const dropdown_content_el = useRef();
-  clickOutsideRef(dropdown_toggle_el, dropdown_content_el);
+  const dropdown = useRef();
+  const [showList, setShowList] = useState(false);
+
+  //prettier-ignore
+  const closeList = () => setShowList(false)
+  const toggleList = () => setShowList((state) => !state);
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (!dropdown.current.contains(event.target)) closeList();
+    };
+    document.addEventListener('click', handler);
+    return () => {
+      document.removeEventListener('click', handler);
+    };
+  }, [showList]);
+
   return (
-    <div className="dropdown">
-      <button ref={dropdown_toggle_el} className="dropdown__toggle">
+    <div ref={dropdown} className="dropdown">
+      <button className="dropdown__toggle" onClick={toggleList}>
         {props.icon ? <i className={props.icon}></i> : ''}
         {props.badge ? (
           <span className="dropdown__toggle-badge">
@@ -36,7 +32,7 @@ const DropDown = (props) => {
         )}
         {props.customToggle ? props.customToggle() : ''}
       </button>
-      <div ref={dropdown_content_el} className="dropdown__content">
+      <div className={`dropdown__content ${showList && 'active'}`}>
         {props.contentData && props.renderItems
           ? props.contentData.map((item, index) =>
               props.renderItems(item, index)
