@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "bx bx-error",
+    "content": "Some orders are yet to dispatch"
+  },
+  {
+    "icon": "bx bx-package",
+    "content": "Packages on the way to Kolkata"
+  },
+  {
+    "icon": "bx bx-cart",
+    "content": "Some of your items sale increased by 271% !!"
+  },
+  {
+    "icon": "bx bx-error",
+    "content": "Order Placement unsuccessful"
+  },
+  {
+    "icon": "bx bx-cart",
+    "content": "Checkout what's the most bought item today"
+  }
+]
