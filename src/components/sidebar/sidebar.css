@@ -53,3 +53,23 @@
 .sidebar__item-inner.active:hover span {
   color: var(--txt-white);
 }
+.sidebar__footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  color: var(--txt-grey);
+}
+
+.sidebar__footer-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.sidebar__footer-row i {
+  font-size: 1.5rem;
+}
+.sidebar__footer-row span {
+  font-size: 1.1rem;
+}
