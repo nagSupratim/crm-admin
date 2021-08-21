@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import './dropdown.css';
 
 const clickOutsideRef = (toggle_ref, content_ref) => {
-  document.addEventListener('mousedown', (event) => {
+  document.addEventListener('click', (event) => {
     if (
       toggle_ref.current &&
       toggle_ref.current.contains(event.target)

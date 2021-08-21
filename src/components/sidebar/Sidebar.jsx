@@ -55,15 +55,17 @@ const Sidebar = (props) => {
       <div className="sidebar__logo">
         <img src={logo} alt="company logo" />
       </div>
-      {sidebar_items.map((item, index) => (
-        <Link to={item.route} key={index}>
-          <SidebarItems
-            title={item.display_name}
-            icon={item.icon}
-            active={index === activeItem}
-          />
-        </Link>
-      ))}
+      <div className="sidebar__links">
+        {sidebar_items.map((item, index) => (
+          <Link to={item.route} key={index}>
+            <SidebarItems
+              title={item.display_name}
+              icon={item.icon}
+              active={index === activeItem}
+            />
+          </Link>
+        ))}
+      </div>
       <div className="sidebar__footer">
         <div className="sidebar__footer-row">
           <div className="row">
